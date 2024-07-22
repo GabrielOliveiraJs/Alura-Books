@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Opcoes = styled.div`
@@ -19,13 +20,22 @@ const Opcao = styled.ul`
 const OpcoesHeader = () => {
     const textoOpcoes = ['CATEGORIAS', 'FAVORITOS', 'MINHA ESTANTE']
 
+    const handlePath = (path) => {
+        return path.toLowerCase().replace(' ', '-')
+    }  
+
     return (
         <Opcoes>
             {
                 textoOpcoes.map((opcao) =>
-                    <Opcao key={opcao}>
-                        <p>{opcao}</p>
-                    </Opcao>
+                    <Link
+                        to={`/${handlePath(opcao)}`}
+                        key={opcao}
+                    >
+                        <Opcao key={opcao}>
+                            <p>{opcao}</p>
+                        </Opcao>
+                    </Link>
                 )
             }
         </Opcoes>
