@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Input from "../Input/Index"
 import { useEffect, useState } from "react"
 import { getLivros } from "../../servicos/livros"
+import { postFavorito } from "../../servicos/favoritos"
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002f52, #326589 165%);
@@ -65,6 +66,11 @@ const Pesquisa = () => {
         setLivros(livrosApi)
     }
 
+    async function insetFavorito(id) {
+        await postFavorito(id)  
+        alert(`Livro de id: ${id} adicionado aos favoritos`)  
+    }
+
     return (
         <PesquisaContainer>
             <Titulo>Já sabe por onde começar?</Titulo>
@@ -83,7 +89,7 @@ const Pesquisa = () => {
             <CardsContainer>
                 {
                     livrosPesquisados.map(livro => (
-                        <Card key={livro.id}>
+                        <Card onClick={() => insetFavorito(livro.id)} key={livro.id}>
                             <p>{livro.nome}</p>
                             <img src={livro.src} alt={livro.nome} />
                         </Card>
